@@ -1,15 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useField } from '@rocketseat/unform';
+import { MdPhotoCamera } from 'react-icons/md';
 
 import api from '~/services/api';
 
-import { Container } from './styles';
+import { Container, Placeholder } from './styles';
 
-export default function AvatarInput() {
-  const { defaultValue, registerField } = useField('avatar');
+export default function ImageInput() {
+  const { defaultValue, registerField } = useField('banner');
 
   const [file, setFile] = useState(defaultValue && defaultValue.id);
-
   const [preview, setPreview] = useState(defaultValue && defaultValue.url);
 
   const ref = useRef();
@@ -17,7 +17,7 @@ export default function AvatarInput() {
   useEffect(() => {
     if (ref.current) {
       registerField({
-        name: 'avatar_id',
+        name: 'file_id',
         ref: ref.current,
         path: 'dataset.file',
       });
@@ -39,16 +39,19 @@ export default function AvatarInput() {
 
   return (
     <Container>
-      <label htmlFor="avatar">
-        <img
-          src={
-            preview || 'https://api.adorable.io/avatars/50/abott@adorable.png'
-          }
-          alt="avatar"
-        />
+      <label htmlFor="banner">
+        {preview ? (
+          <img src={preview} alt="banner" />
+        ) : (
+          <Placeholder>
+            <MdPhotoCamera size="45" color="#999" />
+            Selecionar imagem
+          </Placeholder>
+        )}
+
         <input
           type="file"
-          id="avatar"
+          id="banner"
           accept="image/*"
           data-file={file}
           onChange={handleChange}

@@ -26,7 +26,6 @@ export const Title = styled.div`
   strong {
     color: #fff;
     font-size: 24px;
-    margin: 0 15px;
   }
 
   button {

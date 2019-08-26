@@ -8,8 +8,10 @@ import SignUp from '~/pages/SignUp';
 import Profile from '~/pages/Profile';
 
 import Dashboard from '~/pages/Dashboard';
-import Details from '~/pages/Details';
-import Meetup from '~/pages/Meetup';
+
+import MeetupAdd from '~/pages/Meetup/Add';
+import MeetupEdit from '~/pages/Meetup/Edit';
+import MeetupDetails from '~/pages/Meetup/Details';
 
 export default function Routes() {
   return (
@@ -19,9 +21,9 @@ export default function Routes() {
 
       <Route path="/dashboard" component={Dashboard} isPrivate />
 
-      <Route path="/details/:id" component={Details} isPrivate />
-      <Route path="/meetup/add" component={Meetup} isPrivate />
-      <Route path="/meetup/:id/edit" component={Meetup} isPrivate />
+      <Route path="/meetup/add" component={MeetupAdd} isPrivate />
+      <Route path="/meetup/:id/edit" component={MeetupEdit} isPrivate />
+      <Route path="/meetup/:id/details" component={MeetupDetails} isPrivate />
 
       <Route path="/profile" component={Profile} isPrivate />
 

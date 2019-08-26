@@ -20,7 +20,7 @@ export default function Header() {
     <Container>
       <Content>
         <nav>
-          <Link to="dashboard">
+          <Link to="/">
             <img src={logo} alt="logo" />
           </Link>
         </nav>
@@ -29,7 +29,7 @@ export default function Header() {
           <Profile>
             <div>
               <strong>{profile.name}</strong>
-              <Link to="profile">Meu Perfil</Link>
+              <Link to="/profile">Meu Perfil</Link>
             </div>
             <button type="button" onClick={handleSignOut}>
               Sair

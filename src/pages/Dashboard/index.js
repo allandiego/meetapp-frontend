@@ -19,14 +19,14 @@ export default function Dashboard() {
 
   useEffect(() => {
     async function loadMeetups() {
-      const response = await api.get(`meetups?page=${page}`);
+      const response = await api.get(`organizing?page=${page}`);
 
       const data = response.data.map(meetup => {
         return {
           ...meetup,
           formatedDate: format(
             parseISO(meetup.date),
-            "d 'de' MMMM, 'às' HH'h'",
+            "dd 'de' MMMM, 'às' HH'h'",
             {
               locale: pt,
             }
@@ -74,13 +74,13 @@ export default function Dashboard() {
       <ul>
         {meetups.map(meetup => (
           <Meetup key={meetup.id} past={meetup.past}>
-            <Link to={`/details/${meetup.id}`}>
+            <Link to={`/meetup/${meetup.id}/details`}>
               <strong>{meetup.title}</strong>
             </Link>
 
             <button
               type="button"
-              onClick={() => history.push(`/details/${meetup.id}`)}
+              onClick={() => history.push(`/meetup/${meetup.id}/details`)}
             >
               {meetup.formatedDate} <MdChevronRight size="25" color="#fff" />
             </button>
