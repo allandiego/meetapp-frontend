@@ -11,12 +11,31 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
 
+    .react-datepicker-wrapper,
+    .react-datepicker__input-container {
+      display: block;
+    }
+
     input {
       background: rgba(0, 0, 0, 0.2);
       border: 0;
       border-radius: 4px;
       height: 44px;
       padding: 0 15px;
+      color: #fff;
+      margin: 0 0 10px;
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+      }
+    }
+
+    textarea {
+      background: rgba(0, 0, 0, 0.2);
+      border: 0;
+      border-radius: 4px;
+      height: 150px;
+      padding: 15px 15px;
       color: #fff;
       margin: 0 0 10px;
 
@@ -33,14 +52,7 @@ export const Container = styled.div`
       font-weight: bold;
     }
 
-    hr {
-      border: 0;
-      height: 1px;
-      background: rgba(255, 255, 255, 0.2);
-      margin: 10px 0 20px;
-    }
-
-    button {
+    > button {
       align-self: flex-end;
       margin: 5px;
       width: 150px;

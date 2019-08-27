@@ -1,15 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useField } from '@rocketseat/unform';
 import { MdPhotoCamera } from 'react-icons/md';
+import { toast } from 'react-toastify';
 
 import api from '~/services/api';
+import { getError } from '~/util/errorHandler';
 
 import { Container, Placeholder } from './styles';
 
 export default function ImageInput() {
-  const { defaultValue, registerField } = useField('banner');
+  const { registerField, defaultValue } = useField('file');
+  const { error } = useField('file_id');
 
   const [file, setFile] = useState(defaultValue && defaultValue.id);
+
   const [preview, setPreview] = useState(defaultValue && defaultValue.url);
 
   const ref = useRef();
@@ -22,24 +26,27 @@ export default function ImageInput() {
         path: 'dataset.file',
       });
     }
-    // eslint-disable-next-line
-  }, [ref.current, registerField]);
+  }, [ref.current]); // eslint-disable-line
 
   async function handleChange(e) {
     const data = new FormData();
     data.append('file', e.target.files[0]);
 
-    const response = await api.post('files', data);
+    try {
+      const response = await api.post('files', data);
 
-    const { id, url } = response.data;
+      const { id, url } = response.data;
 
-    setFile(id);
-    setPreview(url);
+      setFile(id);
+      setPreview(url);
+    } catch (err) {
+      toast.error(getError(err) || 'Erro interno');
+    }
   }
 
   return (
     <Container>
-      <label htmlFor="banner">
+      <label htmlFor="file">
         {preview ? (
           <img src={preview} alt="banner" />
         ) : (
@@ -50,14 +57,15 @@ export default function ImageInput() {
         )}
 
         <input
+          id="file"
           type="file"
-          id="banner"
           accept="image/*"
           data-file={file}
           onChange={handleChange}
           ref={ref}
         />
       </label>
+      {error && <span>{error}</span>}
     </Container>
   );
 }

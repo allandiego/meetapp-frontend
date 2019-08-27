@@ -13,6 +13,8 @@ import {
 import history from '~/services/history';
 import api from '~/services/api';
 
+import Loading from '~/components/Loading';
+
 import { Container, Title, Banner } from './styles';
 
 export default function Details({ match }) {
@@ -22,13 +24,14 @@ export default function Details({ match }) {
 
   useEffect(() => {
     async function loadMeetup() {
-      const response = await api.get(`meetups/${id}/detail`);
+      setLoading(true);
+      const response = await api.get(`meetups/${id}`);
 
       const data = {
         ...response.data,
         formatedDate: format(
           parseISO(response.data.date),
-          "dd 'de' MMMM, 'às' HH'h'",
+          "dd 'de' MMMM 'de' yyyy', às' HH:mm",
           {
             locale: pt,
           }
@@ -58,7 +61,7 @@ export default function Details({ match }) {
 
   return (
     <>
-      {!loading && (
+      {!loading ? (
         <Container>
           <header>
             <Title>
@@ -67,7 +70,7 @@ export default function Details({ match }) {
                 <div>
                   <button
                     type="button"
-                    onClick={() => history.push(`/meetups/${meetup.id}/edit`)}
+                    onClick={() => history.push(`/meetup/${meetup.id}/edit`)}
                   >
                     <MdModeEdit size="20" color="#fff" />
                     Editar
@@ -91,7 +94,7 @@ export default function Details({ match }) {
           </header>
 
           <Banner>
-            <img src={meetup.File.url} alt={meetup.File.id} />
+            <img src={meetup.file.url} alt={meetup.file.id} />
           </Banner>
 
           <p>{meetup.description}</p>
@@ -104,6 +107,8 @@ export default function Details({ match }) {
             </address>
           </div>
         </Container>
+      ) : (
+        <Loading />
       )}
     </>
   );

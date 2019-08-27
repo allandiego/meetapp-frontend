@@ -15,6 +15,12 @@ export const Container = styled.div`
     grid-gap: 5px;
     margin-top: 30px;
   }
+
+  h1 {
+    font-size: 16px;
+    color: #fff;
+    align-self: center;
+  }
 `;
 
 export const Title = styled.div`
@@ -81,6 +87,11 @@ export const Meetup = styled.li`
   background: rgba(0, 0, 0, 0.15);
   text-decoration: ${props => (props.past ? 'line-through' : '')};
   color: #fff;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid #999;
+  }
 
   button {
     background: none;

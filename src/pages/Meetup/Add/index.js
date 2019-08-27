@@ -3,7 +3,6 @@ import * as Yup from 'yup';
 import { Form, Input } from '@rocketseat/unform';
 import { toast } from 'react-toastify';
 import { MdAddCircleOutline } from 'react-icons/md';
-import { parseISO } from 'date-fns';
 
 import history from '~/services/history';
 import api from '~/services/api';
@@ -24,10 +23,7 @@ export default function Add() {
 
   async function handleSubmit(data) {
     try {
-      await api.post(`/meetups`, {
-        ...data,
-        date: parseISO(data.date),
-      });
+      await api.post(`/meetups`, { ...data });
 
       toast.success('Meetup criado com sucesso!');
       history.push('/dashboard');
@@ -41,8 +37,8 @@ export default function Add() {
 
   return (
     <Container>
-      <Form initialData={{}} schema={schema} onSubmit={handleSubmit}>
-        {/* <ImageInput name="file_id" /> */}
+      <Form schema={schema} onSubmit={handleSubmit}>
+        <ImageInput name="file_id" />
 
         <Input name="title" type="text" placeholder="Título do Meetup" />
         <Input

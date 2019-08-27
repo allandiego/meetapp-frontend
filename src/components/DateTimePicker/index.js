@@ -11,38 +11,29 @@ registerLocale('pt-BR', pt);
 export default function DateTimePicker({ name, placeholder }) {
   const { fieldName, registerField, defaultValue, error } = useField(name);
 
-  const [selectedDateTime, setSelectedDateTime] = useState(
-    defaultValue && defaultValue.id
-  );
+  const [dateTime, setDateTime] = useState(defaultValue);
 
-  const ref = useRef();
+  const ref = useRef(null);
 
   useEffect(() => {
-    if (ref.current) {
-      registerField({
-        name: fieldName,
-        ref: ref.current,
-        path: 'dataset.date',
-        // path: 'props.selected',
-        // clearValue: pickerRef => {
-        //   pickerRef.clear();
-        // },
-      });
-    }
-    // eslint-disable-next-line
-  }, [ref.current, registerField]);
-
-  function handleChange(date) {
-    setSelectedDateTime(date);
-  }
+    registerField({
+      name: fieldName,
+      ref: ref.current,
+      path: 'props.selected',
+      clearValue: pickerRef => {
+        pickerRef.clear();
+      },
+    });
+  }, [ref.current, fieldName]); // eslint-disable-line
 
   return (
     <>
       <Picker
-        selected={selectedDateTime}
-        onChange={() => {}}
+        name={fieldName}
+        selected={dateTime}
+        onChange={date => setDateTime(date)}
         ref={ref}
-        data-date={selectedDateTime}
+        minDate={new Date()}
         locale="pt-BR"
         showTimeSelect
         timeFormat="HH:mm"
