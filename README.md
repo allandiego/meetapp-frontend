@@ -6,7 +6,6 @@ Frontend web do desafio final do bootcamp rocketseat
 
 ## Requerimentos:
  - projeto backend executando
- - renomear .env.example para .env e editar as variáveis
 
 Executar os comandos:
 
